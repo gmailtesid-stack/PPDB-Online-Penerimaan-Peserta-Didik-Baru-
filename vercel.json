@@ -7,6 +7,18 @@
       "config": {
         "includeFiles": "application/**,system/**"
       }
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "files/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
