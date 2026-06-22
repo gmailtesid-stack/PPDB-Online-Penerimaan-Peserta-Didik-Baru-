@@ -76,10 +76,15 @@ class Model_web extends CI_Model
 
                     // --- NAMA BERKAS DISIMPAN DI SINI ---
                     'foto_kk' => isset($berkas['foto_kk']) ? $berkas['foto_kk'] : '',
+                    'foto_kk_data' => isset($berkas['foto_kk_data']) ? $berkas['foto_kk_data'] : '',
                     'foto_ktp' => isset($berkas['foto_ktp']) ? $berkas['foto_ktp'] : '',
+                    'foto_ktp_data' => isset($berkas['foto_ktp_data']) ? $berkas['foto_ktp_data'] : '',
                     'foto_skl' => isset($berkas['foto_skl']) ? $berkas['foto_skl'] : '',
+                    'foto_skl_data' => isset($berkas['foto_skl_data']) ? $berkas['foto_skl_data'] : '',
                     'foto_ijazah' => isset($berkas['foto_ijazah']) ? $berkas['foto_ijazah'] : '',
+                    'foto_ijazah_data' => isset($berkas['foto_ijazah_data']) ? $berkas['foto_ijazah_data'] : '',
                     'pas_foto' => isset($berkas['pas_foto']) ? $berkas['pas_foto'] : '',
+                    'pas_foto_data' => isset($berkas['pas_foto_data']) ? $berkas['pas_foto_data'] : '',
                     // ------------------------------------
 
                     'tgl_siswa' => date('Y-m-d H:i:s')

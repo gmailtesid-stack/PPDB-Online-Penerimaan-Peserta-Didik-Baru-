@@ -20,14 +20,15 @@ class Web extends CI_Controller
         // 1. PROSES UPLOAD DAN SIMPAN DULU
         if (isset($_POST['btndaftar'])) {
             $nama_berkas = array('foto_kk' => '', 'foto_ktp' => '', 'foto_skl' => '', 'foto_ijazah' => '', 'pas_foto' => '');
+            $data_berkas = array('foto_kk_data' => '', 'foto_ktp_data' => '', 'foto_skl_data' => '', 'foto_ijazah_data' => '', 'pas_foto_data' => '');
             $list_upload = ['foto_kk', 'foto_ktp', 'foto_skl', 'foto_ijazah', 'pas_foto'];
 
-            // FIX: Looping upload dengan initialize() setiap iterasi agar config di-reset ulang
             foreach ($list_upload as $berkas) {
                 if (!empty($_FILES[$berkas]['name'])) {
-                    // FIX: Gunakan initialize() bukan load->library() agar config diterapkan ulang
-                    // setiap kali upload (library sudah di-autoload, sehingga load ulang tidak berpengaruh)
-                    $upload_dir = getenv('VERCEL') ? '/tmp/' : './assets/berkas/';
+                    $upload_dir = '/tmp/';
+                    if (!getenv('VERCEL') && is_dir('./assets/berkas/')) {
+                        $upload_dir = './assets/berkas/';
+                    }
                     $config_upload = array(
                         'upload_path' => $upload_dir,
                         'allowed_types' => 'jpg|jpeg|png',
@@ -37,7 +38,19 @@ class Web extends CI_Controller
                     $this->upload->initialize($config_upload);
 
                     if ($this->upload->do_upload($berkas)) {
-                        $nama_berkas[$berkas] = $this->upload->data('file_name');
+                        $upload_data = $this->upload->data();
+                        $nama_berkas[$berkas] = $upload_data['file_name'];
+
+                        // Read file and encode as base64 for DB storage
+                        $file_path = $upload_data['full_path'];
+                        if (file_exists($file_path)) {
+                            $file_content = file_get_contents($file_path);
+                            $data_berkas[$berkas . '_data'] = base64_encode($file_content);
+                            // Clean up temp file on Vercel
+                            if (getenv('VERCEL')) {
+                                @unlink($file_path);
+                            }
+                        }
                     } else {
                         $error = $this->upload->display_errors('', '');
                         echo "<div style='font-family:sans-serif; text-align:center; margin-top:50px;'>";
@@ -49,8 +62,8 @@ class Web extends CI_Controller
                 }
             }
 
-            // Panggil fungsi simpan ke database di Model
-            $acts = $this->web->pendaftaran('daftar', $this->input, $nama_berkas);
+            // Panggil fungsi simpan ke database di Model (merge filename + file data)
+            $acts = $this->web->pendaftaran('daftar', $this->input, array_merge($nama_berkas, $data_berkas));
 
             $this->session->set_userdata('no_pendaftaran', $this->input->post('nis'));
             redirect('panel_siswa');

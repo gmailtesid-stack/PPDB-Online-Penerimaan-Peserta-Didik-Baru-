@@ -21,7 +21,10 @@
               <div class="input-group-addon"><i class="icon-calendar22"></i></div>
               <select class="form-control" name="thn" onchange="thn()">
                 <?php for ($i = date('Y'); $i >= 2021; $i--) { ?>
-                  <option value="<?php echo $i; ?>" <?php if ($v_thn == $i) { echo "selected"; } ?>>Tahun <?php echo $i; ?></option>
+                  <option value="<?php echo $i; ?>" <?php if ($v_thn == $i) {
+                       echo "selected";
+                     } ?>>Tahun <?php echo $i; ?>
+                  </option>
                 <?php } ?>
               </select>
             </div>
@@ -59,12 +62,17 @@
                     <?php } ?>
                   </td>
                   <td align="center">
-                    <a href="#" data-toggle="modal" data-target="#berkas<?php echo $baris->no_pendaftaran; ?>" class="btn btn-primary btn-xs" title="Lihat Berkas"><i class="icon-folder"></i> Berkas</a>
+                    <a href="#" data-toggle="modal" data-target="#berkas<?php echo $baris->no_pendaftaran; ?>"
+                      class="btn btn-primary btn-xs" title="Lihat Berkas"><i class="icon-folder"></i> Berkas</a>
 
                     <?php if ($baris->status_verifikasi == 0) { ?>
-                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>" class="btn btn-info btn-xs" title="Verifikasi" onclick="return confirm('Apakah Anda yakin?')"><i class="icon-checkmark4"></i></a>
+                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>" class="btn btn-info btn-xs"
+                        title="Verifikasi" onclick="return confirm('Apakah Anda yakin?')"><i
+                          class="icon-checkmark4"></i></a>
                     <?php } else { ?>
-                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>" class="btn btn-danger btn-xs" title="Batal Verifikasi" onclick="return confirm('Apakah Anda yakin?')"><i class="icon-cross3"></i></a>
+                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>"
+                        class="btn btn-danger btn-xs" title="Batal Verifikasi"
+                        onclick="return confirm('Apakah Anda yakin?')"><i class="icon-cross3"></i></a>
                     <?php } ?>
                   </td>
                 </tr>
@@ -77,22 +85,42 @@
                         <h5 class="modal-title" style="color: white;">Berkas: <?php echo $baris->nama_lengkap; ?></h5>
                       </div>
                       <div class="modal-body text-center">
-                        
+
                         <h4>Pas Foto</h4>
-                        <?php if($baris->pas_foto){ ?> <img src="<?php echo base_url(); ?>assets/berkas/<?php echo $baris->pas_foto; ?>" width="300"><br><br> <?php } else { echo "<p class='text-danger'>Tidak ada file</p>"; } ?>
-                        
+                        <?php if ($baris->pas_foto) { ?> <img
+                            src="<?php echo base_url(); ?>berkas/serve/<?php echo $baris->no_pendaftaran; ?>/pas_foto"
+                            width="300"><br><br> <?php } else {
+                          echo "<p class='text-danger'>Tidak ada file</p>";
+                        } ?>
+
                         <h4>Foto KK</h4>
-                        <?php if($baris->foto_kk){ ?> <img src="<?php echo base_url(); ?>assets/berkas/<?php echo $baris->foto_kk; ?>" width="100%"><br><br> <?php } else { echo "<p class='text-danger'>Tidak ada file</p>"; } ?>
-                        
+                        <?php if ($baris->foto_kk) { ?> <img
+                            src="<?php echo base_url(); ?>berkas/serve/<?php echo $baris->no_pendaftaran; ?>/foto_kk"
+                            width="100%"><br><br> <?php } else {
+                          echo "<p class='text-danger'>Tidak ada file</p>";
+                        } ?>
+
                         <h4>Foto KTP Wali</h4>
-                        <?php if($baris->foto_ktp){ ?> <img src="<?php echo base_url(); ?>assets/berkas/<?php echo $baris->foto_ktp; ?>" width="100%"><br><br> <?php } else { echo "<p class='text-danger'>Tidak ada file</p>"; } ?>
-                        
+                        <?php if ($baris->foto_ktp) { ?> <img
+                            src="<?php echo base_url(); ?>berkas/serve/<?php echo $baris->no_pendaftaran; ?>/foto_ktp"
+                            width="100%"><br><br> <?php } else {
+                          echo "<p class='text-danger'>Tidak ada file</p>";
+                        } ?>
+
                         <h4>Foto SKL</h4>
-                        <?php if($baris->foto_skl){ ?> <img src="<?php echo base_url(); ?>assets/berkas/<?php echo $baris->foto_skl; ?>" width="100%"><br><br> <?php } else { echo "<p class='text-danger'>Tidak ada file</p>"; } ?>
-                        
+                        <?php if ($baris->foto_skl) { ?> <img
+                            src="<?php echo base_url(); ?>berkas/serve/<?php echo $baris->no_pendaftaran; ?>/foto_skl"
+                            width="100%"><br><br> <?php } else {
+                          echo "<p class='text-danger'>Tidak ada file</p>";
+                        } ?>
+
                         <h4>Foto Ijazah</h4>
-                        <?php if($baris->foto_ijazah){ ?> <img src="<?php echo base_url(); ?>assets/berkas/<?php echo $baris->foto_ijazah; ?>" width="100%"><br><br> <?php } else { echo "<p class='text-danger'>Tidak ada file</p>"; } ?>
-                        
+                        <?php if ($baris->foto_ijazah) { ?> <img
+                            src="<?php echo base_url(); ?>berkas/serve/<?php echo $baris->no_pendaftaran; ?>/foto_ijazah"
+                            width="100%"><br><br> <?php } else {
+                          echo "<p class='text-danger'>Tidak ada file</p>";
+                        } ?>
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -106,7 +134,7 @@
           </table>
         </div>
       </div>
-      </div>
+    </div>
     <script type="text/javascript">
       function thn() {
         var thn = $('[name="thn"]').val();
