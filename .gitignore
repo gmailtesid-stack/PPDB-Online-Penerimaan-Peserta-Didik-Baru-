@@ -4,10 +4,7 @@ application/logs/*
 application/cache/*
 !application/cache/index.html
 
-# User uploads / files
-files/*
-!files/index.html
-
 # PHP / Environment
-vendor/
+/vendor/
 .env
+node_modules/
