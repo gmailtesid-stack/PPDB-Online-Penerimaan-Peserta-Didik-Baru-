@@ -2,6 +2,9 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.6.2"
+    },
+    "api/migrate.php": {
+      "runtime": "vercel-php@0.6.2"
     }
   },
   "routes": [
@@ -16,6 +19,10 @@
     {
       "src": "/files/(.*)",
       "dest": "/files/$1"
+    },
+    {
+      "src": "/run-migrate",
+      "dest": "/api/migrate.php"
     },
     {
       "src": "/(.*)",
