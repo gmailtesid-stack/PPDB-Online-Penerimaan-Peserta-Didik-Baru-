@@ -6,7 +6,7 @@ class Web extends CI_Controller
 
     public function index()
     {
-        $data['web_ppdb']    = $this->web->web_utama();
+        $data['web_ppdb'] = $this->web->web_utama();
         $this->load->view('web/index', $data);
     }
 
@@ -19,7 +19,7 @@ class Web extends CI_Controller
     {
         // 1. PROSES UPLOAD DAN SIMPAN DULU
         if (isset($_POST['btndaftar'])) {
-            $nama_berkas = array('foto_kk'=>'', 'foto_ktp'=>'', 'foto_skl'=>'', 'foto_ijazah'=>'', 'pas_foto'=>'');
+            $nama_berkas = array('foto_kk' => '', 'foto_ktp' => '', 'foto_skl' => '', 'foto_ijazah' => '', 'pas_foto' => '');
             $list_upload = ['foto_kk', 'foto_ktp', 'foto_skl', 'foto_ijazah', 'pas_foto'];
 
             // FIX: Looping upload dengan initialize() setiap iterasi agar config di-reset ulang
@@ -27,11 +27,12 @@ class Web extends CI_Controller
                 if (!empty($_FILES[$berkas]['name'])) {
                     // FIX: Gunakan initialize() bukan load->library() agar config diterapkan ulang
                     // setiap kali upload (library sudah di-autoload, sehingga load ulang tidak berpengaruh)
+                    $upload_dir = getenv('VERCEL') ? '/tmp/' : './assets/berkas/';
                     $config_upload = array(
-                        'upload_path'   => './assets/berkas/',
+                        'upload_path' => $upload_dir,
                         'allowed_types' => 'jpg|jpeg|png',
-                        'max_size'      => 5120,
-                        'encrypt_name'  => TRUE,
+                        'max_size' => 5120,
+                        'encrypt_name' => TRUE,
                     );
                     $this->upload->initialize($config_upload);
 
@@ -58,14 +59,14 @@ class Web extends CI_Controller
 
         // 2. TAMPILKAN HALAMAN FORM
         $data = array(
-            'id_daftar'         => $this->web->pendaftaran('id_baru'),
-            'web_ppdb'          => $this->web->pendaftaran('status_ppdb'),
-            'v_pdd'             => $this->web->pendaftaran('v_pdd'),
-            'v_penghasilan'     => $this->web->pendaftaran('v_penghasilan'),
-            'v_pekerjaan_ayah'  => $this->web->pendaftaran('v_pekerjaan_ayah'),
-            'v_komp'            => $this->web->pendaftaran('v_komp'),
-            'v_pekerjaan_ibu'   => $this->web->pendaftaran('v_pekerjaan_ibu'),
-            'v_pekerjaan_wali'  => $this->web->pendaftaran('v_pekerjaan_wali')
+            'id_daftar' => $this->web->pendaftaran('id_baru'),
+            'web_ppdb' => $this->web->pendaftaran('status_ppdb'),
+            'v_pdd' => $this->web->pendaftaran('v_pdd'),
+            'v_penghasilan' => $this->web->pendaftaran('v_penghasilan'),
+            'v_pekerjaan_ayah' => $this->web->pendaftaran('v_pekerjaan_ayah'),
+            'v_komp' => $this->web->pendaftaran('v_komp'),
+            'v_pekerjaan_ibu' => $this->web->pendaftaran('v_pekerjaan_ibu'),
+            'v_pekerjaan_wali' => $this->web->pendaftaran('v_pekerjaan_wali')
         );
 
         if ($data['web_ppdb']->status_ppdb == 'tutup') {
@@ -77,7 +78,7 @@ class Web extends CI_Controller
 
     public function logcs()
     {
-        $data['web_ppdb']    = $this->web->pendaftaran('status_ppdb');
+        $data['web_ppdb'] = $this->web->pendaftaran('status_ppdb');
         if ($data['web_ppdb']->status_ppdb == 'tutup') {
             redirect('404');
         }
