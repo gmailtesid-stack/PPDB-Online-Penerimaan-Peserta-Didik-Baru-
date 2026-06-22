@@ -56,7 +56,4 @@ $route['pendaftaran'] = 'web/pendaftaran';
 $route['logcs'] = 'web/logcs';
 $route['migrate/(:any)'] = 'migrate/$1';
 $route['berkas/serve/(:any)/(:any)'] = 'berkas/serve/$1/$2';
-$route['panel_admin'] = 'panel_admin';
-$route['panel_admin/(:any)'] = 'panel_admin/$1';
-$route['panel_admin/(:any)/(:any)'] = 'panel_admin/$1/$2';
 $route['translate_uri_dashes'] = FALSE;
