@@ -116,7 +116,8 @@ $soa = $this->db->get('tbl_siswa');
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="#page-top">
@@ -155,13 +156,14 @@ $soa = $this->db->get('tbl_siswa');
         <?php
         $segment = $this->uri->segment(1);
 
-if (!empty($segment) && strtolower($segment) == 'logcs') {
-    $this->load->view('web/login');
-} ?>
+        if (!empty($segment) && strtolower($segment) == 'logcs') {
+            $this->load->view('web/login');
+        } ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="img/logo.png" style="margin-top:-15%;margin-bottom:-10px;" width="100">
+                    <img class="img-responsive" src="img/logo.png" style="margin-top:-15%;margin-bottom:-10px;"
+                        width="100">
                     <br><br>
                     <div class="intro-text">
                         <span class="name shad" style="font-size:35px; line-height: 35px;">
@@ -177,19 +179,21 @@ if (!empty($segment) && strtolower($segment) == 'logcs') {
                                 <a href="logcs" class="btn btn-danger" style="margin: 5px; border-radius: 6px;">
                                     <i class="fa fa-sign-in faa-pulse"></i> &nbsp;
                                     <b><?php if ($ceks == '') {
-                                            echo "MASUK";
-                                        } else {
-                                            echo "Panel";
-                                        } ?> SISWA</b></a>
+                                        echo "MASUK";
+                                    } else {
+                                        echo "Panel";
+                                    } ?> SISWA</b></a>
                                 <br>
                             </span>
                         <?php } else { ?>
                             <span class="skills">
                             </span>
-                           <br>
+                            <br>
 
                             <span>
-                                <a href="javascript:void(0);" class="btn btn-danger btn-lg" style="margin:5px;"><i class="fa fa-file faa-pulse animated"></i> &nbsp;<b>PENDAFTARAN PPDB Online DITUTUP</b></a>
+                                <a href="javascript:void(0);" class="btn btn-danger btn-lg" style="margin:5px;"><i
+                                        class="fa fa-file faa-pulse animated"></i> &nbsp;<b>PENDAFTARAN PPDB Online
+                                        DITUTUP</b></a>
                                 <br>
                             </span>
                         <?php } ?>
@@ -292,11 +296,17 @@ if (!empty($segment) && strtolower($segment) == 'logcs') {
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2" style="text-align:justify; line-height: 22px;">
-                    <p><?php echo $user['nama_lengkap']; ?> menyediakan PPDB secara <i>online</i> diharapkan proses PPDB dapat berjalan cepat
-                        dan bisa dilakukan dimanapun dan kapanpun selama sesi PPDB Online dibuka. Proses pendaftaran calon siswa baru di masa pandemi Covid-19 ini dan terhambat oleh jarak jika datang ke madrasah langsung, bisa mengakses website PPDB Online <?php echo $user['nama_lengkap']; ?>. </p>
+                    <p><?php echo $user['nama_lengkap']; ?> menyediakan PPDB secara <i>online</i> diharapkan proses PPDB
+                        dapat berjalan cepat
+                        dan bisa dilakukan dimanapun dan kapanpun selama sesi PPDB Online dibuka. Proses pendaftaran
+                        calon siswa baru di masa pandemi Covid-19 ini dan terhambat oleh jarak jika datang ke madrasah
+                        langsung, bisa mengakses website PPDB Online <?php echo $user['nama_lengkap']; ?>. </p>
                 </div>
                 <div class="col-lg-4" style="text-align:justify; line-height: 22px;">
-                    <p>Pengisian form PPDB Online mohon diperhatikan data yang dibutuhkan yang nantinya akan dipakai dalam proses PPDB. Setelah proses pengisian form PPDB secara online berhasil dilakukan, calon siswa akan mendapat bukti daftar dengan nomor pendaftaran dan harus disimpan yang akan digunakan untuk proses selanjutnya.</p>
+                    <p>Pengisian form PPDB Online mohon diperhatikan data yang dibutuhkan yang nantinya akan dipakai
+                        dalam proses PPDB. Setelah proses pengisian form PPDB secara online berhasil dilakukan, calon
+                        siswa akan mendapat bukti daftar dengan nomor pendaftaran dan harus disimpan yang akan digunakan
+                        untuk proses selanjutnya.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center page-scroll">
                     <a href="#page-top" class="btn btn-warning" style="border-radius: 5px;">
@@ -348,9 +358,11 @@ if (!empty($segment) && strtolower($segment) == 'logcs') {
                 <div class="col-lg-12" style="margin-top:-10px;">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
-                        <h4 align="center">PPDB Online &copy; <?php echo $user['nama_lengkap']; ?><br><?php echo $user['alamat']; ?></h4>
+                        <h4 align="center">PPDB Online &copy;
+                            <?php echo $user['nama_lengkap']; ?><br><?php echo $user['alamat']; ?></h4>
                         <p align="center" style="font-size: 14px;">
-                            <span><b><i class="fa fa-phone-square">&nbsp;</i> <?php echo $user['telp']; ?></b></span><br>
+                            <span><b><i class="fa fa-phone-square">&nbsp;</i>
+                                    <?php echo $user['telp']; ?></b></span><br>
                             <span><b><i class="fa fa-envelope">&nbsp;</i> <?php echo $user['email']; ?></b></span><br>
                             <span><b><i class="fa fa-globe">&nbsp;</i> <?php echo $user['website']; ?></b></span>
                         </p>
@@ -386,7 +398,7 @@ if (!empty($segment) && strtolower($segment) == 'logcs') {
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="assets/js/jqBootstrapValidation.js"></script>
@@ -395,7 +407,7 @@ if (!empty($segment) && strtolower($segment) == 'logcs') {
     <!-- Theme JavaScript -->
     <script src="assets/js/freelancer.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
             $("#example1").DataTable();
             $('#example2').DataTable({
                 "paging": true,
