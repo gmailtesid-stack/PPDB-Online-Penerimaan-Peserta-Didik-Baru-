@@ -30,6 +30,14 @@ try {
     }
     echo "<p style='color:green'>Connected to TiDB successfully!</p>";
 
+    // CHECK USERS
+    echo "<h3>Current Users in tbl_user:</h3><ul>";
+    $result = $conn->query("SELECT * FROM tbl_user");
+    while ($row = $result->fetch_assoc()) {
+        echo "<li>Username: <b>" . htmlspecialchars($row['username']) . "</b> | Password: <b>" . htmlspecialchars($row['password']) . "</b></li>";
+    }
+    echo "</ul><hr>";
+
     // Columns to add
     $columns = [
         "foto_kk VARCHAR(255) DEFAULT ''",
