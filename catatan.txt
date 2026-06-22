@@ -1,0 +1,9 @@
+LOGIN SISWA : 
+NO. PENDAFTARA : 2025-1747590183
+NISN : 123
+
+LOGIN ADMIN
+panel_admin/log_in
+
+
+
