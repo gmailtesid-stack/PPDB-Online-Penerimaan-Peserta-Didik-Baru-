@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => getenv('TIDB_HOST') !== false ? getenv('TIDB_HOST') : 'localhost',
 	'username' => getenv('TIDB_USER') !== false ? getenv('TIDB_USER') : 'root',
 	'password' => getenv('TIDB_PASSWORD') !== false ? getenv('TIDB_PASSWORD') : '',
-	'database' => getenv('TIDB_DB') !== false ? getenv('TIDB_DB') : 'ppdbonline',
+	'database' => (getenv('TIDB_DB') !== false && getenv('TIDB_DB') !== 'sys') ? getenv('TIDB_DB') : 'test',
 	'port' => getenv('TIDB_PORT') !== false ? getenv('TIDB_PORT') : 3306,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
