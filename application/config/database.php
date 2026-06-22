@@ -89,7 +89,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => getenv('TIDB_HOST') !== false ? array('ssl_ca' => '/etc/ssl/certs/ca-certificates.crt', 'ssl_verify' => false) : FALSE,
+	'encrypt' => getenv('TIDB_HOST') !== false ? array('ssl_verify' => false) : FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
