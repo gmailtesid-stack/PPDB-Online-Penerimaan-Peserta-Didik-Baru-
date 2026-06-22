@@ -74,12 +74,12 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn' => '',
 	'hostname' => getenv('TIDB_HOST') !== false ? getenv('TIDB_HOST') : 'localhost',
 	'username' => getenv('TIDB_USER') !== false ? getenv('TIDB_USER') : 'root',
 	'password' => getenv('TIDB_PASSWORD') !== false ? getenv('TIDB_PASSWORD') : '',
 	'database' => getenv('TIDB_DB') !== false ? getenv('TIDB_DB') : 'ppdbonline',
-	'port'     => getenv('TIDB_PORT') !== false ? getenv('TIDB_PORT') : 3306,
+	'port' => getenv('TIDB_PORT') !== false ? getenv('TIDB_PORT') : 3306,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -89,7 +89,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => getenv('TIDB_HOST') !== false ? array('ssl_verify' => false) : FALSE,
+	'encrypt' => getenv('TIDB_HOST') !== false ? array('ssl_ca' => '/etc/ssl/certs/ca-certificates.crt', 'ssl_verify' => false) : FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
