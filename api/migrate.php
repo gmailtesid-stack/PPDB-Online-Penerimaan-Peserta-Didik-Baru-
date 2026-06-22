@@ -65,6 +65,20 @@ try {
     }
 
     $conn->close();
+
+    // Attempt to fix AUTO_INCREMENT on id_siswa
+    try {
+        $conn2 = new mysqli();
+        if (getenv('TIDB_HOST')) {
+            $conn2->ssl_set(NULL, NULL, NULL, NULL, NULL);
+        }
+        $conn2->real_connect($host, $user, $pass, $db, (int) $port, NULL, $flags);
+        $conn2->query("ALTER TABLE tbl_siswa MODIFY id_siswa INT(100) NOT NULL AUTO_INCREMENT");
+        echo "<p style='color:green'>✅ Fixed AUTO_INCREMENT on id_siswa</p>";
+        $conn2->close();
+    } catch (Exception $ex) {
+    }
+
     echo "<br><b style='color:green'>Migration complete! Delete this file now.</b>";
 
 } catch (Exception $e) {
