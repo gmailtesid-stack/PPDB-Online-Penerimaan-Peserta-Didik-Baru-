@@ -18,11 +18,12 @@ echo "<h2>TiDB Migration - Add file columns to tbl_siswa</h2>";
 try {
     // Connect with SSL for TiDB Cloud
     $conn = new mysqli();
+    $flags = 0;
     if (getenv('TIDB_HOST')) {
         $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
-        $conn->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, false);
+        $flags = MYSQLI_CLIENT_SSL | MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT;
     }
-    $conn->real_connect($host, $user, $pass, $db, (int) $port);
+    $conn->real_connect($host, $user, $pass, $db, (int) $port, NULL, $flags);
 
     if ($conn->connect_error) {
         die("<p style='color:red'>Connection failed: " . $conn->connect_error . "</p>");
