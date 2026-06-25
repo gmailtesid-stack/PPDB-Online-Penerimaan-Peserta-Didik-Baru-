@@ -61,6 +61,22 @@ class Migrate extends CI_Controller
             $errors[] = "Failed to ensure AUTO_INCREMENT on id_siswa.";
         }
 
+        // Create CI session table if using database sessions
+        $sessionTableSql = "CREATE TABLE IF NOT EXISTS ci_sessions (
+            id VARCHAR(128) NOT NULL,
+            ip_address VARCHAR(45) NOT NULL,
+            timestamp INT(10) UNSIGNED NOT NULL DEFAULT 0,
+            data BLOB NOT NULL,
+            PRIMARY KEY (id),
+            KEY ci_sessions_timestamp (timestamp)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+
+        if ($this->db->query($sessionTableSql)) {
+            $success[] = "Ensured ci_sessions database session table exists.";
+        } else {
+            $errors[] = "Failed to ensure ci_sessions session table exists.";
+        }
+
         echo "<h2>Migration Results</h2>";
         echo "<h3>Success:</h3><ul>";
         foreach ($success as $s)

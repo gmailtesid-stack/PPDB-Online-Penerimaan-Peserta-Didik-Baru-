@@ -30,6 +30,23 @@ try {
     }
     echo "<p style='color:green'>Connected to TiDB successfully!</p>";
 
+    // Ensure CI database session table exists for Vercel serverless session persistence
+    $sessionSql = "CREATE TABLE IF NOT EXISTS ci_sessions (
+        id VARCHAR(128) NOT NULL,
+        ip_address VARCHAR(45) NOT NULL,
+        timestamp INT(10) UNSIGNED NOT NULL DEFAULT 0,
+        data BLOB NOT NULL,
+        PRIMARY KEY (id),
+        KEY ci_sessions_timestamp (timestamp)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+    if ($conn->query($sessionSql)) {
+        echo "<p style='color:green'>✅ ci_sessions table exists or was created.</p>";
+    } else {
+        echo "<p style='color:red'>❌ Failed to create ci_sessions table: " . $conn->error . "</p>";
+    }
+
+    echo "<hr>";
+
     // CHECK USERS
     echo "<h3>Current Users in tbl_user:</h3><ul>";
     $result = $conn->query("SELECT * FROM tbl_user");
