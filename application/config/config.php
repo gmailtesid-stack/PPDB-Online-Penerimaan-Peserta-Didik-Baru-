@@ -370,11 +370,15 @@ $config['encryption_key'] = '';
 */
 $in_vercel = (isset($_SERVER['VERCEL']) || getenv('VERCEL') !== false || (isset($_ENV['VERCEL']) && $_ENV['VERCEL'] !== ''));
 $has_db_env = (getenv('TIDB_HOST') !== false && getenv('TIDB_HOST') !== '');
-$use_database_sessions = (!$in_vercel && $has_db_env) ? TRUE : FALSE;
+$use_database_sessions = $has_db_env ? TRUE : FALSE;
 $config['sess_driver'] = ($use_database_sessions ? 'database' : 'files');
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = ($use_database_sessions ? 'ci_sessions' : sys_get_temp_dir());
+$session_temp_path = sys_get_temp_dir().'/ci_sessions';
+if (!is_dir($session_temp_path)) {
+	@mkdir($session_temp_path, 0777, true);
+}
+$config['sess_save_path'] = ($use_database_sessions ? 'ci_sessions' : $session_temp_path);
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
