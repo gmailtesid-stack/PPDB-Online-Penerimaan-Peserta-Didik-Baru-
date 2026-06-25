@@ -66,11 +66,11 @@
                       class="btn btn-primary btn-xs" title="Lihat Berkas"><i class="icon-folder"></i> Berkas</a>
 
                     <?php if ($baris->status_verifikasi == 0) { ?>
-                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>" class="btn btn-info btn-xs"
+                      <a href="<?php echo base_url('panel_admin/verifikasi/cek/'.$baris->no_pendaftaran); ?>" class="btn btn-info btn-xs"
                         title="Verifikasi" onclick="return confirm('Apakah Anda yakin?')"><i
                           class="icon-checkmark4"></i></a>
                     <?php } else { ?>
-                      <a href="panel_admin/verifikasi/cek/<?php echo $baris->no_pendaftaran; ?>"
+                      <a href="<?php echo base_url('panel_admin/verifikasi/cek/'.$baris->no_pendaftaran); ?>"
                         class="btn btn-danger btn-xs" title="Batal Verifikasi"
                         onclick="return confirm('Apakah Anda yakin?')"><i class="icon-cross3"></i></a>
                     <?php } ?>
