@@ -368,7 +368,7 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$use_database_sessions = getenv('TIDB_HOST') ? TRUE : FALSE;
+$use_database_sessions = (getenv('VERCEL') === false && getenv('TIDB_HOST')) ? TRUE : FALSE;
 $config['sess_driver'] = ($use_database_sessions ? 'database' : 'files');
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
