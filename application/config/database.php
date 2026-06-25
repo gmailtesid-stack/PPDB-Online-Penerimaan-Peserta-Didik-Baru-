@@ -83,7 +83,7 @@ $db['default'] = array(
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
+	'db_debug' => (getenv('VERCEL') !== false ? FALSE : (ENVIRONMENT !== 'production')),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
