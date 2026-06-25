@@ -43,6 +43,24 @@ class Migrate extends CI_Controller
             }
         }
 
+        // Ensure id_siswa is the primary key and has AUTO_INCREMENT
+        $pk_check = $this->db->query("SELECT COUNT(*) as cnt FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_siswa' AND INDEX_NAME = 'PRIMARY' AND COLUMN_NAME = 'id_siswa'");
+        if ($pk_check->row()->cnt == 0) {
+            if ($this->db->query("ALTER TABLE tbl_siswa ADD PRIMARY KEY (id_siswa)")) {
+                $success[] = "Ensured PRIMARY KEY on id_siswa.";
+            } else {
+                $errors[] = "Failed to ensure PRIMARY KEY on id_siswa.";
+            }
+        } else {
+            $success[] = "PRIMARY KEY on id_siswa already exists.";
+        }
+
+        if ($this->db->query("ALTER TABLE tbl_siswa MODIFY id_siswa INT(100) NOT NULL AUTO_INCREMENT")) {
+            $success[] = "Ensured AUTO_INCREMENT on id_siswa.";
+        } else {
+            $errors[] = "Failed to ensure AUTO_INCREMENT on id_siswa.";
+        }
+
         echo "<h2>Migration Results</h2>";
         echo "<h3>Success:</h3><ul>";
         foreach ($success as $s)

@@ -64,9 +64,19 @@ class Web extends CI_Controller
 
             // Panggil fungsi simpan ke database di Model (merge filename + file data)
             $acts = $this->web->pendaftaran('daftar', $this->input, array_merge($nama_berkas, $data_berkas));
+            if ($acts === TRUE) {
+                $this->session->set_userdata('no_pendaftaran', $this->input->post('nis'));
+                redirect('panel_siswa');
+                return;
+            }
 
-            $this->session->set_userdata('no_pendaftaran', $this->input->post('nis'));
-            redirect('panel_siswa');
+            $db_error = $this->db->error();
+            $error_message = isset($db_error['message']) && !empty($db_error['message']) ? $db_error['message'] : 'Gagal menyimpan data pendaftaran. Silakan coba lagi atau hubungi admin.';
+            echo '<div style="font-family:sans-serif; text-align:center; margin-top:50px;">';
+            echo '<h2>Gagal menyimpan pendaftaran</h2>';
+            echo '<p style="color:red;">Pesan: <strong>' . htmlspecialchars($error_message) . '</strong></p>';
+            echo '<p><a href="' . base_url('web/pendaftaran') . '">Kembali ke formulir pendaftaran</a></p>';
+            echo '</div>';
             return;
         }
 

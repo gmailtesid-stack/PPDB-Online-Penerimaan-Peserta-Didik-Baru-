@@ -89,7 +89,32 @@ class Model_web extends CI_Model
 
                     'tgl_siswa' => date('Y-m-d H:i:s')
                 );
-                return $this->db->insert('tbl_siswa', $data_simpan);
+
+                $insert = $this->db->insert('tbl_siswa', $data_simpan);
+                if ($insert) {
+                    return TRUE;
+                }
+
+                $error = $this->db->error();
+                $message = isset($error['message']) ? strtolower($error['message']) : '';
+                $needs_manual_id = false;
+
+                if (strpos($message, 'duplicate entry') !== false && strpos($message, 'primary') !== false) {
+                    $needs_manual_id = true;
+                } elseif (strpos($message, "doesn't have a default value") !== false) {
+                    $needs_manual_id = true;
+                } elseif (strpos($message, 'cannot be null') !== false && strpos($message, 'id_siswa') !== false) {
+                    $needs_manual_id = true;
+                }
+
+                if ($needs_manual_id) {
+                    $last_id = $this->db->select_max('id_siswa', 'max_id')->get('tbl_siswa')->row();
+                    $next_id = (int) $last_id->max_id + 1;
+                    $data_simpan['id_siswa'] = $next_id;
+                    return $this->db->insert('tbl_siswa', $data_simpan);
+                }
+
+                return FALSE;
                 break;
 
             case 'id_baru':

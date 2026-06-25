@@ -72,20 +72,32 @@ try {
         }
     }
 
-    $conn->close();
-
-    // Attempt to fix AUTO_INCREMENT on id_siswa
-    try {
-        $conn2 = new mysqli();
-        if (getenv('TIDB_HOST')) {
-            $conn2->ssl_set(NULL, NULL, NULL, NULL, NULL);
+    // Ensure id_siswa is the primary key and has AUTO_INCREMENT
+    $pk_check = $conn->query("SELECT COUNT(*) as cnt FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_siswa' AND INDEX_NAME = 'PRIMARY' AND COLUMN_NAME = 'id_siswa'");
+    $pk_row = $pk_check->fetch_assoc();
+    if ($pk_row['cnt'] == 0) {
+        if ($conn->query("ALTER TABLE tbl_siswa ADD PRIMARY KEY (id_siswa)")) {
+            echo "<p style='color:green'>✅ Added PRIMARY KEY on id_siswa</p>";
+        } else {
+            echo "<p style='color:red'>❌ Failed to add PRIMARY KEY on id_siswa: " . $conn->error . "</p>";
         }
-        $conn2->real_connect($host, $user, $pass, $db, (int) $port, NULL, $flags);
-        $conn2->query("ALTER TABLE tbl_siswa MODIFY id_siswa INT(100) NOT NULL AUTO_INCREMENT");
-        echo "<p style='color:green'>✅ Fixed AUTO_INCREMENT on id_siswa</p>";
-        $conn2->close();
-    } catch (Exception $ex) {
+    } else {
+        echo "<p>✅ Primary key on id_siswa already exists.</p>";
     }
+
+    if ($conn->query("ALTER TABLE tbl_siswa MODIFY id_siswa INT(100) NOT NULL AUTO_INCREMENT")) {
+        echo "<p style='color:green'>✅ Ensured AUTO_INCREMENT on id_siswa</p>";
+    } else {
+        $err = $conn->error;
+        echo "<p style='color:orange'>⚠️ MODIFY failed, trying CHANGE: " . $err . "</p>";
+        if ($conn->query("ALTER TABLE tbl_siswa CHANGE id_siswa id_siswa INT(100) NOT NULL AUTO_INCREMENT")) {
+            echo "<p style='color:green'>✅ Ensured AUTO_INCREMENT on id_siswa using CHANGE</p>";
+        } else {
+            echo "<p style='color:red'>❌ Failed to ensure AUTO_INCREMENT on id_siswa: " . $conn->error . "</p>";
+        }
+    }
+
+    $conn->close();
 
     echo "<br><b style='color:green'>Migration complete! Delete this file now.</b>";
 
